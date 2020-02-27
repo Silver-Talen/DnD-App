@@ -28,14 +28,14 @@ public class APICaller : MonoBehaviour
     }
 
     //Sends an API request - Returns a JSON file
-    IEnumerator GetData(string Location)
+    IEnumerator GetData()
     {
         //Create the web request and download handler
         UnityWebRequest WebReq = new UnityWebRequest();
         WebReq.downloadHandler = new DownloadHandlerBuffer();
 
         //Build the url and query
-        WebReq.url = string.Format("{0}&q={1}", Url, Location);
+        WebReq.url = Url;
 
         //Send the web request and wait for a returning result
         yield return WebReq.SendWebRequest();
@@ -46,11 +46,7 @@ public class APICaller : MonoBehaviour
         //Parse the raw string into a json result we can easily read
         JsonResult = JSON.Parse(RawJson);
 
-        UI.instance.SetSegments(JsonResult["result"]);
+        DND_Database.Instance.FetchData(JsonResult["results"]);
     }
     
-    public void FilterData()
-    {
-
-    }
 }

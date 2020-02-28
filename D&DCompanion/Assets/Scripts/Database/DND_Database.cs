@@ -22,6 +22,33 @@ public class DND_Database : MonoBehaviour
         Instance = this;
     }
 
+    void Start()
+    {
+        //Path to database
+        string Connection = "URI=file:" + Application.dataPath + "/Databases/DND_Data.db";
+
+        IDbConnection DBConnection;
+        //Gets the Database using the connection
+        DBConnection = new SqliteConnection(Connection);
+        //Opens the connection to the database
+        DBConnection.Open();
+        IDbCommand DBCommand = DBConnection.CreateCommand();
+
+        string sqlQuery = "SELECT * FROM Equipment";
+        DBCommand.CommandText = sqlQuery;
+        IDataReader reader = DBCommand.ExecuteReader();
+
+        isDatabaseEmpty = !reader.Read();
+
+        reader.Close();
+        reader = null;
+        DBCommand.Dispose();
+        DBCommand = null;
+        DBConnection.Close();
+        DBConnection = null;
+
+    }
+
     // Start is called before the first frame update
     public void OpenDatabase()
     {

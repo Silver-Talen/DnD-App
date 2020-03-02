@@ -14,6 +14,7 @@ public class APICaller : MonoBehaviour
 {
     //API URL
     public string Url;
+    public string ApiCall;
 
     //Resulting JSON from an API request
     public JSONNode JsonResult;
@@ -35,7 +36,7 @@ public class APICaller : MonoBehaviour
         WebReq.downloadHandler = new DownloadHandlerBuffer();
 
         //Build the url and query
-        WebReq.url = Url;
+        WebReq.url = Url + ApiCall;
 
         //Send the web request and wait for a returning result
         yield return WebReq.SendWebRequest();

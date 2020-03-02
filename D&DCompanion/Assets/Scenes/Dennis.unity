@@ -299,7 +299,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Inventory
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -368,7 +368,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 35621925}
-    characterCount: 6
+    characterCount: 9
     spriteCount: 0
     spaceCount: 0
     wordCount: 1
@@ -445,7 +445,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c06a60d4c1d62eb4387db5a798029dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Url: http://www.dnd5eapi.co/api/equipment/
+  Url: http://www.dnd5eapi.co/api/
+  ApiCall: classes/
 --- !u!4 &93222611
 Transform:
   m_ObjectHideFlags: 0
@@ -473,6 +474,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56d591e5357e44d488a6f0074c9960be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ApiCall: Classes
 --- !u!1 &151683962
 GameObject:
   m_ObjectHideFlags: 0
@@ -604,7 +606,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: 'Dice Roll
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -673,10 +677,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 170285284}
-    characterCount: 6
+    characterCount: 10
     spriteCount: 0
-    spaceCount: 0
-    wordCount: 1
+    spaceCount: 2
+    wordCount: 2
     linkCount: 0
     lineCount: 1
     pageCount: 1
@@ -717,7 +721,7 @@ GameObject:
   - component: {fileID: 234554999}
   - component: {fileID: 234554998}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Inventory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -785,7 +789,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 234554999}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 93222609}
+        m_MethodName: OutputData
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Equipment
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &234554999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1037,7 +1052,7 @@ GameObject:
   - component: {fileID: 466731092}
   - component: {fileID: 466731091}
   m_Layer: 5
-  m_Name: Button
+  m_Name: DiceRoll
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1155,7 +1170,7 @@ GameObject:
   - component: {fileID: 472687888}
   - component: {fileID: 472687887}
   m_Layer: 5
-  m_Name: Button
+  m_Name: CharacterSheet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1223,7 +1238,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 472687888}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 93222609}
+        m_MethodName: OutputData
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Classes
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &472687888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1617,7 +1643,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Monster Gen
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1686,10 +1712,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 759256672}
-    characterCount: 6
+    characterCount: 11
     spriteCount: 0
-    spaceCount: 0
-    wordCount: 1
+    spaceCount: 1
+    wordCount: 2
     linkCount: 0
     lineCount: 1
     pageCount: 1
@@ -2529,7 +2555,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Loot Gen
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2598,10 +2624,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1404564722}
-    characterCount: 6
+    characterCount: 8
     spriteCount: 0
-    spaceCount: 0
-    wordCount: 1
+    spaceCount: 1
+    wordCount: 2
     linkCount: 0
     lineCount: 1
     pageCount: 1
@@ -2642,7 +2668,7 @@ GameObject:
   - component: {fileID: 1452753027}
   - component: {fileID: 1452753026}
   m_Layer: 5
-  m_Name: Button
+  m_Name: LootGen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2710,7 +2736,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1452753027}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 93222609}
+        m_MethodName: OutputData
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Equipment
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1452753027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2760,7 +2797,7 @@ GameObject:
   - component: {fileID: 1491052028}
   - component: {fileID: 1491052027}
   m_Layer: 5
-  m_Name: Button
+  m_Name: MonsterGen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2828,7 +2865,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1491052028}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 93222609}
+        m_MethodName: OutputData
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Monsters
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1491052028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3082,7 +3130,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Character
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3151,7 +3199,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1700898260}
-    characterCount: 6
+    characterCount: 9
     spriteCount: 0
     spaceCount: 0
     wordCount: 1

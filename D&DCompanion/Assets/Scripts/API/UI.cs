@@ -21,15 +21,14 @@ public class UI : MonoBehaviour
         Instance = this;
     }
 
-    void Start()
+    public void OutputData(string ApiCall)
     {
+        APICaller.Instance.ApiCall = ApiCall.ToLower() + "/";
+        DND_Database.Instance.ApiCall = ApiCall;
         APICaller.Instance.StartCoroutine("GetData");
-    }
+        Instance.StartCoroutine("DelayedOpenDatabase");
 
-    public void OutputData()
-    {
-        DND_Database.Instance.OpenDatabase();
-
+        Debug.Log("Past the delay");
         //foreach (Data data in ParsedData)
         //{
         //    TextMeshProUGUI TextToAdd = new TextMeshProUGUI();
@@ -37,6 +36,12 @@ public class UI : MonoBehaviour
         //    TextToAdd.text = data.ToString();
         //    TextToAdd.transform.parent = Content.transform;
         //}
+    }
+
+    IEnumerator DelayedOpenDatabase()
+    {
+        yield return new WaitForSeconds(0.5f);
+        DND_Database.Instance.OpenDatabase();
     }
 
 }

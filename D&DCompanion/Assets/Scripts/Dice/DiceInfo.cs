@@ -6,37 +6,24 @@ public class DiceInfo : MonoBehaviour
 {
     [SerializeField] GameObject[] m_facePositions;
     [SerializeField] GameObject m_die;
-    bool isRolling = true;
 
     Vector3 m_pastPosition = new Vector3(0.0f, 0.0f, 0.0f);
 
-    private void Start()
+    public bool IsRolling()
     {
-        m_pastPosition = m_die.transform.position;
-    }
-
-    float checkDellay = 0.5f;
-    float dellayTimer = 0.0f;
-
-    void Update()
-    {
-        if (dellayTimer <= 0.0f)
+        bool isRolling;
+        if (m_pastPosition - m_die.transform.position == new Vector3(0.0f, 0.0f, 0.0f))
         {
-            if (m_pastPosition - m_die.transform.position == new Vector3(0.0f, 0.0f, 0.0f))
-            {
-                isRolling = false;
-                Debug.Log("" + GetTopFace());
-            }
-            else
-            {
-                isRolling = true;
-            }
-            m_pastPosition = m_die.transform.position;
-
-            dellayTimer = checkDellay;
+            isRolling = false;
+        }
+        else
+        {
+            isRolling = true;
         }
 
-        dellayTimer -= Time.deltaTime;
+        m_pastPosition = m_die.transform.position;
+
+        return isRolling;
     }
 
     public int GetTopFace()
@@ -51,5 +38,10 @@ public class DiceInfo : MonoBehaviour
         int face = int.Parse("" + topGO.name[topGO.name.Length - 1]);
 
         return face;
+    }
+
+    public void StartRoll(Vector3 location, float range)
+    {
+        m_die.transform.position = location + (new Vector3(Random.Range(0.0f, range), 0.0f, Random.Range(0.0f, range)));
     }
 }

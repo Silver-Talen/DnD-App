@@ -14,6 +14,7 @@ public class UI : MonoBehaviour
 
     public static UI Instance;
     public List<Data> ParsedData;
+    public List<Data> DatabaseData;
 
     void Awake()
     {
@@ -29,19 +30,35 @@ public class UI : MonoBehaviour
         Instance.StartCoroutine("DelayedOpenDatabase");
 
         Debug.Log("Past the delay");
-        //foreach (Data data in ParsedData)
-        //{
-        //    TextMeshProUGUI TextToAdd = new TextMeshProUGUI();
-        //    TextToAdd = Instantiate(DisplayText);
-        //    TextToAdd.text = data.ToString();
-        //    TextToAdd.transform.parent = Content.transform;
-        //}
+        
+    }
+
+    public void DisplayData()
+    {
+        Instance.StartCoroutine("DelayedDisplayData");
     }
 
     IEnumerator DelayedOpenDatabase()
     {
         yield return new WaitForSeconds(0.5f);
         DND_Database.Instance.OpenDatabase();
+    }
+
+    IEnumerator DelayedDisplayData()
+    {
+        yield return new WaitForSeconds(0.7f);
+
+        foreach (Transform child in Content.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        foreach (Data data in DatabaseData)
+        {
+            TextMeshProUGUI TextToAdd = new TextMeshProUGUI();
+            TextToAdd = Instantiate(DisplayText);
+            TextToAdd.text = data.ToString();
+            TextToAdd.transform.parent = Content.transform;
+        }
     }
 
 }

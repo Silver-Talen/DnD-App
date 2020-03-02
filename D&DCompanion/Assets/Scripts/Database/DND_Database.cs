@@ -64,10 +64,11 @@ public class DND_Database : MonoBehaviour
         if(isDatabaseEmpty)
         {
             GenerateDatabase();
+            GrabDatabase();
         }
         else
         {
-
+            GrabDatabase();
             Debug.Log(ApiCall);
         }
                
@@ -110,22 +111,39 @@ public class DND_Database : MonoBehaviour
 
     void GrabDatabase()
     {
-        //string sqlQuery = "SELECT * FROM Equipment";
-        //DBCommand.CommandText = sqlQuery;
-        //IDataReader reader = DBCommand.ExecuteReader();
+        //Path to database
+        string Connection = "URI=file:" + Application.dataPath + "/Databases/DND_Data.db";
 
-        //while (reader.Read())
-        //{
-        //    Debug.Log("This ain't it chief");
+        //Gets the Database using the connection
+        DBConnection = new SqliteConnection(Connection);
+        //Opens the connection to the database
+        DBConnection.Open();
+        DBCommand = DBConnection.CreateCommand();
 
-        //}
+        string sqlQuery = "SELECT * FROM " + ApiCall;
+        DBCommand.CommandText = sqlQuery;
+        reader = DBCommand.ExecuteReader();
 
-        //reader.Close();
-        //reader = null;
-        //DBCommand.Dispose();
-        //DBCommand = null;
-        //DBConnection.Close();
-        //DBConnection = null; 
+        List<Data> DatabaseData = new List<Data>();
+        while (reader.Read())
+        {
+            Data data = new Data(reader.GetString(1), reader.GetString(2), reader.GetString(3));
+            string index = reader.GetString(1);
+            string name = reader.GetString(2);
+            string url = reader.GetString(3);
+            DatabaseData.Add(data);
+
+            Debug.Log("INDEX: " + index + " NAME: " + name + " URL: " + url);
+
+        }
+        UI.Instance.DatabaseData = DatabaseData;
+
+        reader.Close();
+        reader = null;
+        DBCommand.Dispose();
+        DBCommand = null;
+        DBConnection.Close();
+        DBConnection = null;
     }
 
     public void FetchData(JSONNode records)

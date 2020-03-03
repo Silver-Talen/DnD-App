@@ -39,9 +39,4 @@ public class DiceInfo : MonoBehaviour
 
         return face;
     }
-
-    public void StartRoll(Vector3 location, float range)
-    {
-        m_die.transform.position = location + (new Vector3(Random.Range(0.0f, range), 0.0f, Random.Range(0.0f, range)));
-    }
 }

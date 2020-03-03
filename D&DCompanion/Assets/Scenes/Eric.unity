@@ -477,7 +477,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_d4Count: 0
-  m_d6Count: 4
+  m_d6Count: 10
   m_d8Count: 0
   m_d10Count: 0
   m_d12Count: 0
@@ -486,7 +486,7 @@ MonoBehaviour:
   m_dCustomeCount: 0
   m_dCustomeNumber: 0
   m_d4Die: {fileID: 0}
-  m_d6Die: {fileID: 0}
+  m_d6Die: {fileID: 6009821066878921240, guid: b29b2a3e81245fb429b53db3eec718ff, type: 3}
   m_d8Die: {fileID: 0}
   m_d10Die: {fileID: 0}
   m_d12Die: {fileID: 0}
@@ -500,7 +500,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 400769838}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 4.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

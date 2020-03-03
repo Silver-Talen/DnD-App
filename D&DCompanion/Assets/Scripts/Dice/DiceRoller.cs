@@ -24,7 +24,12 @@ public class DiceRoller : MonoBehaviour
     [SerializeField] GameObject m_d100Die;
 
     bool m_areRolling = false;
-    List<GameObject> m_dice;
+    List<GameObject> m_dice = new List<GameObject>();
+
+    float rollingCheckDellay = 0.5f;
+    float rollingCheckTick = 1.0f;
+
+    float diceSSR = 6.0f;
 
     private void Start()
     {
@@ -35,19 +40,46 @@ public class DiceRoller : MonoBehaviour
     {
         if (m_areRolling)
         {
+            if (rollingCheckTick <= 0.0f)
+            {
+                rollingCheckTick = rollingCheckDellay;
 
+                m_areRolling = false;
+                foreach(GameObject die in m_dice)
+                {
+                    if (die.transform.position.y < -20.0f) die.transform.position = this.transform.position + (new Vector3(Random.Range(-diceSSR, diceSSR), 0.0f, Random.Range(-diceSSR, diceSSR)));
+                    if (die.GetComponent<DiceInfo>().IsRolling()) m_areRolling = true;
+                }
+            }
+            rollingCheckTick -= Time.deltaTime;
+
+            if (!m_areRolling)
+            {
+                int total = 0;
+                foreach (GameObject die in m_dice)
+                {
+                    int f = 1;
+                    int topFace = die.GetComponent<DiceInfo>().GetTopFace();
+
+                    total += topFace;
+                    Debug.Log("Die " + f + ": " + topFace);
+                    f++;
+                }
+                Debug.Log("Total: " + total);
+            }
         }
     }
 
     public void SpawnDice()
     {
-        for(int f = 0; f < m_d4Count; f++)
+        for (int f = 0; f < m_d6Count; f++)
         {
-            GameObject go = Instantiate(m_d4Die);
-            go.GetComponent<DiceInfo>().StartRoll(this.transform.position, 6);
-            go.transform.localRotation = new Quaternion(Random.value, Random.value, Random.value, Random.value);
-            go.GetComponent<Rigidbody>().angularVelocity = new Vector3(Random.value, Random.value, Random.value);
-            //go.transform.localScale = new Vector3(2.0f, 2.0f, 2.0f) * (1 / GetDiceTotal());
+            GameObject go = Instantiate(m_d6Die);
+            go.transform.position = this.transform.position + (new Vector3(Random.Range(-diceSSR, diceSSR), 0.0f, Random.Range(-diceSSR, diceSSR)));
+            go.transform.rotation = new Quaternion(Random.Range(-360.0f, 360.0f), Random.Range(-360.0f, 360.0f), Random.Range(-360.0f, 360.0f), Random.Range(-360.0f, 360.0f));
+            go.GetComponent<Rigidbody>().angularVelocity = new Vector3(Random.Range(0.0f, 180.0f), Random.Range(0.0f, 180.0f), Random.Range(0.0f, 180.0f));
+            float speed = 10.0f;
+            go.GetComponent<Rigidbody>().velocity = new Vector3(Random.Range(-speed, speed), -5.0f, Random.Range(-speed, speed));
 
             m_dice.Add(go);
         }

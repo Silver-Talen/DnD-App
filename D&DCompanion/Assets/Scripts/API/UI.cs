@@ -5,11 +5,13 @@ using UnityEngine.UI;
 using TMPro;
 using SimpleJSON;
 using System;
+using Random = UnityEngine.Random;
 
 public class UI : MonoBehaviour
 {
     public GameObject Content;
-    public TextMeshProUGUI DisplayText = new TextMeshProUGUI();
+    public TextMeshProUGUI DisplayText;
+    public GameObject DisplayButton;
 
 
     public static UI Instance;
@@ -38,6 +40,11 @@ public class UI : MonoBehaviour
         Instance.StartCoroutine("DelayedDisplayData");
     }
 
+    public void DisplayRandomData()
+    {
+        Instance.StartCoroutine("DelayedDisplayRandomData");
+    }
+
     IEnumerator DelayedOpenDatabase()
     {
         yield return new WaitForSeconds(0.5f);
@@ -54,11 +61,32 @@ public class UI : MonoBehaviour
         }
         foreach (Data data in DatabaseData)
         {
-            TextMeshProUGUI TextToAdd = new TextMeshProUGUI();
-            TextToAdd = Instantiate(DisplayText);
-            TextToAdd.text = data.ToString();
-            TextToAdd.transform.parent = Content.transform;
+            GameObject ButtonObject;
+            ButtonObject = Instantiate(DisplayButton);
+            Button ButtonToAdd = ButtonObject.GetComponentInChildren<Button>();
+            TextMeshProUGUI TextToDisplay = ButtonToAdd.GetComponentInChildren<TextMeshProUGUI>();
+            TextToDisplay.text = data.Name;
+            ButtonObject.transform.SetParent(Content.transform);
+
         }
+    }
+
+    IEnumerator DelayedDisplayRandomData()
+    {
+        yield return new WaitForSeconds(0.7f);
+
+        foreach (Transform child in Content.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        int rand = Random.Range(0, DatabaseData.Count);
+        GameObject ButtonObject;
+        ButtonObject = Instantiate(DisplayButton);
+        Button ButtonToAdd = ButtonObject.GetComponentInChildren<Button>();
+        TextMeshProUGUI TextToDisplay = ButtonToAdd.GetComponentInChildren<TextMeshProUGUI>();
+        TextToDisplay.text = DatabaseData[rand].Name;
+        ButtonObject.transform.SetParent(Content.transform);
     }
 
 }

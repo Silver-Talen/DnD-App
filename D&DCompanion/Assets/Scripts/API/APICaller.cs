@@ -50,4 +50,27 @@ public class APICaller : MonoBehaviour
         DND_Database.Instance.FetchData(JsonResult["results"]);
     }
     
+    IEnumerator GetDetails(string type)
+    {
+
+        //Create the web request and download handler
+        UnityWebRequest WebReq = new UnityWebRequest();
+        WebReq.downloadHandler = new DownloadHandlerBuffer();
+
+        new WaitForSeconds(0.5f);
+        //Build the url and query
+        WebReq.url = "http://www.dnd5eapi.co" + ApiCall;
+
+        //Send the web request and wait for a returning result
+        yield return WebReq.SendWebRequest();
+
+        //Convert the byte array and wait for a returning result
+        string RawJson = Encoding.Default.GetString(WebReq.downloadHandler.data);
+
+        //Parse the raw string into a json result we can easily read
+        JsonResult = JSON.Parse(RawJson);
+
+        DND_Database.Instance.FetchData(JsonResult, type);
+
+    }
 }

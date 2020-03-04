@@ -79,8 +79,12 @@ public class UI : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-
         int rand = Random.Range(0, DatabaseData.Count);
+        string url = DatabaseData[rand].Url.Replace("\"", "");
+        APICaller.Instance.ApiCall = url;
+
+        APICaller.Instance.StartCoroutine("GetDetails", "Monster");
+
         GameObject ButtonObject;
         ButtonObject = Instantiate(DisplayButton);
         Button ButtonToAdd = ButtonObject.GetComponentInChildren<Button>();

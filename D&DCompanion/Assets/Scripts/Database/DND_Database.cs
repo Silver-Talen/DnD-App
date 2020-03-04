@@ -5,6 +5,7 @@ using Mono.Data.Sqlite;
 using System.Data;
 using System;
 using SimpleJSON;
+using System.Linq;
 
 //THIS CLASS WAS CREATED USING A TUTORIAL FOUND AT THE URL BELOW
 //https://answers.unity.com/questions/743400/database-sqlite-setup-for-unity.html
@@ -154,5 +155,37 @@ public class DND_Database : MonoBehaviour
             Data data = new Data(item["index"], item["name"], item["url"]);
             ParsedData.Add(data);
         }
+    }
+
+    public void FetchData(JSONNode records, string type)
+    {
+        switch (type)
+        {
+            case "Equipment":
+                break;
+            case "Monster":
+                ParseMonsterData(records);
+                break;
+            case "Weapon":
+                break;
+            default:
+                break;
+        }
+    }
+
+    void ParseMonsterData(JSONNode records)
+    {
+        ParsedData = new List<Monster>().Cast<Data>().ToList();
+        
+            Monster monster = new Monster(records["index"], records["name"], records["url"],
+                records["size"], records["type"], records["subtype"], records["alignment"],
+                records["armor_class"], records["hit_points"], records["hit_dice"], records["speed"].Value,
+                records["strength"], records["dexterity"], records["constitution"], records["intelligence"],
+                records["wisdom"], records["charisma"], records["proficiencies"], records["damage_vulnerabilities"],
+                records["damage)resistances"], records["damage_immunities"], records["condition_immunities"],
+                records["senses"], records["languages"], records["challenge_rating"], records["special_abilities"],
+                records["actions"]);
+            ParsedData.Add(monster);
+        
     }
 }

@@ -5,9 +5,15 @@ using UnityEngine;
 public class DiceInfo : MonoBehaviour
 {
     [SerializeField] GameObject[] m_facePositions;
-    [SerializeField] GameObject m_die;
+
+    GameObject m_die;
 
     Vector3 m_pastPosition = new Vector3(0.0f, 0.0f, 0.0f);
+
+    private void Start()
+    {
+        m_die = this.gameObject;
+    }
 
     public bool IsRolling()
     {
@@ -35,7 +41,7 @@ public class DiceInfo : MonoBehaviour
             if (go.transform.position.y > topGO.transform.position.y) topGO = go;
         }
 
-        int face = int.Parse("" + topGO.name[topGO.name.Length - 1]);
+        int face = int.Parse(topGO.name.Remove(0, 4));
 
         return face;
     }

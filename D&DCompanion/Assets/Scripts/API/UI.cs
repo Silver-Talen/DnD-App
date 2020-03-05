@@ -342,10 +342,10 @@ public class UI : MonoBehaviour
             {
                 if (prof.Key != "\"url\"")
                 {
-                    specAbil += prof.Value.Replace("\"", string.Empty) + " ";
+                    specAbil += prof.Value.Replace("\"", string.Empty) + " \n";
                 }
             }
-            specAbil += "\n";
+            specAbil += "\n\n";
         }
         if (data[0].SpecialAbilities.Count == 0)
         {
@@ -359,14 +359,14 @@ public class UI : MonoBehaviour
         #region Actions
         label = Instantiate(DisplayLabel);
         text = label.GetComponentInChildren<TextMeshProUGUI>();
-        string actions = "\n";
+        string actions = "\n\n";
         foreach (var item in data[0].Actions)
         {
             foreach (var prof in item)
             {
                 if (prof.Key != "\"url\"")
                 {
-                    actions += prof.Value.Replace("\"", string.Empty) + " ";
+                    actions += prof.Value.Replace("\"", string.Empty) + " \n";
                 }
             }
             actions += "\n";
@@ -379,8 +379,6 @@ public class UI : MonoBehaviour
         label.transform.SetParent(Content.transform);
         label.transform.localScale = new Vector3(1, 1, 1);
         #endregion
-
-
 
         Instance.StartCoroutine("RefreshContent");
     }

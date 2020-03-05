@@ -250,7 +250,7 @@ public class DND_Database : MonoBehaviour
 
         //This needs to be a list
         monster.Actions = new List<Dictionary<string, string>>();
-        foreach (JSONNode item in records["special_abilities"].AsArray)
+        foreach (JSONNode item in records["actions"].AsArray)
         {
             monster.Actions.Add(ConvertToDictionarySimple(item));
         }

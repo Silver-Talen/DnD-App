@@ -6,6 +6,7 @@ using System.Data;
 using System;
 using SimpleJSON;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 //THIS CLASS WAS CREATED USING A TUTORIAL FOUND AT THE URL BELOW
 //https://answers.unity.com/questions/743400/database-sqlite-setup-for-unity.html
@@ -134,8 +135,6 @@ public class DND_Database : MonoBehaviour
             string url = reader.GetString(3);
             DatabaseData.Add(data);
 
-            Debug.Log("INDEX: " + index + " NAME: " + name + " URL: " + url);
-
         }
         UI.Instance.DatabaseData = DatabaseData;
 
@@ -165,6 +164,8 @@ public class DND_Database : MonoBehaviour
                 break;
             case "Monster":
                 ParseMonsterData(records);
+                List<Monster> data = ParsedData.Cast<Monster>().ToList();
+                UI.Instance.DisplayGottenData(data);
                 break;
             case "Weapon":
                 break;
@@ -176,16 +177,128 @@ public class DND_Database : MonoBehaviour
     void ParseMonsterData(JSONNode records)
     {
         ParsedData = new List<Monster>().Cast<Data>().ToList();
+
+        Monster monster = new Monster(records["index"], records["name"], records["url"]);
+
+        monster.Size = records["size"];
+        monster.Type = records["type"];
+        monster.Subtype = records["subtype"];
+        monster.Alignment = records["alignment"];
+        monster.ArmorClass = records["armor_class"];
+        monster.HitPoints = records["hit_points"];
+        monster.HitDice = records["hit_dice"];
+
+        //This needs to be a list
+        monster.Speed = ConvertToDictionary(records, "speed");
         
-            Monster monster = new Monster(records["index"], records["name"], records["url"],
-                records["size"], records["type"], records["subtype"], records["alignment"],
-                records["armor_class"], records["hit_points"], records["hit_dice"], records["speed"].Value,
-                records["strength"], records["dexterity"], records["constitution"], records["intelligence"],
-                records["wisdom"], records["charisma"], records["proficiencies"], records["damage_vulnerabilities"],
-                records["damage)resistances"], records["damage_immunities"], records["condition_immunities"],
-                records["senses"], records["languages"], records["challenge_rating"], records["special_abilities"],
-                records["actions"]);
-            ParsedData.Add(monster);
         
+        monster.Strength = records["strength"];
+        monster.Dexterity = records["dexterity"];
+        monster.Constitution = records["constitution"];
+        monster.Intelligence = records["wisdom"];
+        monster.Wisdom = records["wisdom"];
+        monster.Charisma = records["charisma"];
+
+
+        //This needs to be a list
+        monster.Proficiencies = new List<Dictionary<string, string>>();
+        foreach (JSONNode item in records["proficiencies"].AsArray)
+        {
+            monster.Proficiencies.Add(ConvertToDictionary(item));
+        }
+
+        //This needs to be a list
+        monster.DamageVulnerabilities = new List<string>();
+        foreach (JSONNode item in records["damage_vulnerabilities"].AsArray)
+        {
+            monster.DamageVulnerabilities.Add(item);
+        }
+
+        //This needs to be a list
+        monster.DamageResistances = new List<string>();
+        foreach (JSONNode item in records["damage_resistances"].AsArray)
+        {
+            monster.DamageResistances.Add(item);
+        }
+
+        //This needs to be a list
+        monster.DamageImmunities = new List<string>();
+        foreach (JSONNode item in records["damage_immunities"].AsArray)
+        {
+            monster.DamageImmunities.Add(item);
+        }
+
+        //This needs to be a list
+        monster.ConditionImmunities = new List<Dictionary<string, string>>();
+        foreach (JSONNode item in records["condition_immunities"].AsArray)
+        {
+            monster.ConditionImmunities.Add(ConvertToDictionary(item));
+        }
+
+        //This needs to be a list
+        monster.Senses = ConvertToDictionary(records, "senses");
+
+        monster.Languages = records["languages"];
+        monster.ChallengeRating = records["challenge_rating"];
+
+        //This needs to be a list
+        monster.SpecialAbilities = new List<Dictionary<string, string>>();
+        foreach (JSONNode item in records["special_abilities"].AsArray)
+        {
+            monster.SpecialAbilities.Add(ConvertToDictionarySimple(item));
+        }
+
+        //This needs to be a list
+        monster.Actions = new List<Dictionary<string, string>>();
+        foreach (JSONNode item in records["special_abilities"].AsArray)
+        {
+            monster.Actions.Add(ConvertToDictionarySimple(item));
+        }
+
+        ParsedData.Add(monster);
+    }
+
+    Dictionary<string, string> ConvertToDictionary(JSONNode records, string record)
+    {
+        Dictionary<string, string> dictionary = new Dictionary<string, string>();
+
+        string recordsStr = records[record].AsObject.ToString();
+        recordsStr = recordsStr.Replace("{", string.Empty);
+        recordsStr = recordsStr.Replace("}", string.Empty);
+        string[] recordsList = Regex.Split(recordsStr, @"(?:[^""]*\B[,])");
+            //recordsStr.Split(',').ToList();
+        foreach (string item in recordsList)
+        {
+            string[] recordArr = Regex.Split(item, @"(?:[^""]*\B[:])");
+            dictionary.Add(recordArr[0], recordArr[1].ToString());
+        }
+
+        return dictionary;
+    }
+
+    Dictionary<string, string> ConvertToDictionary(JSONNode records)
+    {
+        Dictionary<string, string> dictionary = new Dictionary<string, string>();
+
+        string recordsStr = records.AsObject.ToString();
+        recordsStr = recordsStr.Replace("{", string.Empty);
+        recordsStr = recordsStr.Replace("}", string.Empty);
+        string[] recordsList = Regex.Split(recordsStr, @"(?:[^""]*\B[,])");
+        foreach (string item in recordsList)
+        {
+            string[] recordArr = Regex.Split(item, @"(?:[^""]*\B[:])");
+            dictionary.Add(recordArr[0], recordArr[1].ToString());
+        }
+
+        return dictionary;
+    }
+
+    Dictionary<string, string> ConvertToDictionarySimple(JSONNode records)
+    {
+        Dictionary<string, string> dictionary = new Dictionary<string, string>();
+        dictionary.Add("name", records["name"]);
+        dictionary.Add("desc", records["desc"]);
+        
+        return dictionary;
     }
 }

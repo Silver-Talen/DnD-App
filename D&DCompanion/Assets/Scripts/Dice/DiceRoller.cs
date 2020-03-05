@@ -10,10 +10,6 @@ public class DiceRoller : MonoBehaviour
     [SerializeField] int m_d10Count = 0;
     [SerializeField] int m_d12Count = 0;
     [SerializeField] int m_d20Count = 0;
-    [SerializeField] int m_d100Count = 0;
-    [SerializeField] int m_dCustomeCount = 0;
-
-    [SerializeField] int m_dCustomeNumber = 0;
 
     [SerializeField] GameObject m_d4Die;
     [SerializeField] GameObject m_d6Die;
@@ -21,7 +17,6 @@ public class DiceRoller : MonoBehaviour
     [SerializeField] GameObject m_d10Die;
     [SerializeField] GameObject m_d12Die;
     [SerializeField] GameObject m_d20Die;
-    [SerializeField] GameObject m_d100Die;
 
     bool m_areRolling = false;
     List<GameObject> m_dice = new List<GameObject>();
@@ -56,9 +51,9 @@ public class DiceRoller : MonoBehaviour
             if (!m_areRolling)
             {
                 int total = 0;
+                int f = 1;
                 foreach (GameObject die in m_dice)
                 {
-                    int f = 1;
                     int topFace = die.GetComponent<DiceInfo>().GetTopFace();
 
                     total += topFace;
@@ -72,9 +67,64 @@ public class DiceRoller : MonoBehaviour
 
     public void SpawnDice()
     {
+        for (int f = 0; f < m_d4Count; f++)
+        {
+            GameObject go = Instantiate(m_d4Die);
+            go.transform.position = this.transform.position + (new Vector3(Random.Range(-diceSSR, diceSSR), 0.0f, Random.Range(-diceSSR, diceSSR)));
+            go.transform.rotation = new Quaternion(Random.Range(-360.0f, 360.0f), Random.Range(-360.0f, 360.0f), Random.Range(-360.0f, 360.0f), Random.Range(-360.0f, 360.0f));
+            go.GetComponent<Rigidbody>().angularVelocity = new Vector3(Random.Range(0.0f, 180.0f), Random.Range(0.0f, 180.0f), Random.Range(0.0f, 180.0f));
+            float speed = 10.0f;
+            go.GetComponent<Rigidbody>().velocity = new Vector3(Random.Range(-speed, speed), -5.0f, Random.Range(-speed, speed));
+
+            m_dice.Add(go);
+        }
         for (int f = 0; f < m_d6Count; f++)
         {
             GameObject go = Instantiate(m_d6Die);
+            go.transform.position = this.transform.position + (new Vector3(Random.Range(-diceSSR, diceSSR), 0.0f, Random.Range(-diceSSR, diceSSR)));
+            go.transform.rotation = new Quaternion(Random.Range(-360.0f, 360.0f), Random.Range(-360.0f, 360.0f), Random.Range(-360.0f, 360.0f), Random.Range(-360.0f, 360.0f));
+            go.GetComponent<Rigidbody>().angularVelocity = new Vector3(Random.Range(0.0f, 180.0f), Random.Range(0.0f, 180.0f), Random.Range(0.0f, 180.0f));
+            float speed = 10.0f;
+            go.GetComponent<Rigidbody>().velocity = new Vector3(Random.Range(-speed, speed), -5.0f, Random.Range(-speed, speed));
+
+            m_dice.Add(go);
+        }
+        for (int f = 0; f < m_d8Count; f++)
+        {
+            GameObject go = Instantiate(m_d8Die);
+            go.transform.position = this.transform.position + (new Vector3(Random.Range(-diceSSR, diceSSR), 0.0f, Random.Range(-diceSSR, diceSSR)));
+            go.transform.rotation = new Quaternion(Random.Range(-360.0f, 360.0f), Random.Range(-360.0f, 360.0f), Random.Range(-360.0f, 360.0f), Random.Range(-360.0f, 360.0f));
+            go.GetComponent<Rigidbody>().angularVelocity = new Vector3(Random.Range(0.0f, 180.0f), Random.Range(0.0f, 180.0f), Random.Range(0.0f, 180.0f));
+            float speed = 10.0f;
+            go.GetComponent<Rigidbody>().velocity = new Vector3(Random.Range(-speed, speed), -5.0f, Random.Range(-speed, speed));
+
+            m_dice.Add(go);
+        }
+        for (int f = 0; f < m_d10Count; f++)
+        {
+            GameObject go = Instantiate(m_d10Die);
+            go.transform.position = this.transform.position + (new Vector3(Random.Range(-diceSSR, diceSSR), 0.0f, Random.Range(-diceSSR, diceSSR)));
+            go.transform.rotation = new Quaternion(Random.Range(-360.0f, 360.0f), Random.Range(-360.0f, 360.0f), Random.Range(-360.0f, 360.0f), Random.Range(-360.0f, 360.0f));
+            go.GetComponent<Rigidbody>().angularVelocity = new Vector3(Random.Range(0.0f, 180.0f), Random.Range(0.0f, 180.0f), Random.Range(0.0f, 180.0f));
+            float speed = 10.0f;
+            go.GetComponent<Rigidbody>().velocity = new Vector3(Random.Range(-speed, speed), -5.0f, Random.Range(-speed, speed));
+
+            m_dice.Add(go);
+        }
+        for (int f = 0; f < m_d12Count; f++)
+        {
+            GameObject go = Instantiate(m_d12Die);
+            go.transform.position = this.transform.position + (new Vector3(Random.Range(-diceSSR, diceSSR), 0.0f, Random.Range(-diceSSR, diceSSR)));
+            go.transform.rotation = new Quaternion(Random.Range(-360.0f, 360.0f), Random.Range(-360.0f, 360.0f), Random.Range(-360.0f, 360.0f), Random.Range(-360.0f, 360.0f));
+            go.GetComponent<Rigidbody>().angularVelocity = new Vector3(Random.Range(0.0f, 180.0f), Random.Range(0.0f, 180.0f), Random.Range(0.0f, 180.0f));
+            float speed = 10.0f;
+            go.GetComponent<Rigidbody>().velocity = new Vector3(Random.Range(-speed, speed), -5.0f, Random.Range(-speed, speed));
+
+            m_dice.Add(go);
+        }
+        for (int f = 0; f < m_d20Count; f++)
+        {
+            GameObject go = Instantiate(m_d20Die);
             go.transform.position = this.transform.position + (new Vector3(Random.Range(-diceSSR, diceSSR), 0.0f, Random.Range(-diceSSR, diceSSR)));
             go.transform.rotation = new Quaternion(Random.Range(-360.0f, 360.0f), Random.Range(-360.0f, 360.0f), Random.Range(-360.0f, 360.0f), Random.Range(-360.0f, 360.0f));
             go.GetComponent<Rigidbody>().angularVelocity = new Vector3(Random.Range(0.0f, 180.0f), Random.Range(0.0f, 180.0f), Random.Range(0.0f, 180.0f));
@@ -92,7 +142,7 @@ public class DiceRoller : MonoBehaviour
         SpawnDice();
     }
 
-    public int GetDiceTotal(bool includeCustome = false)
+    public int GetTotalDice()
     {
         int total = 0;
         total += m_d4Count;
@@ -101,8 +151,6 @@ public class DiceRoller : MonoBehaviour
         total += m_d10Count;
         total += m_d12Count;
         total += m_d20Count;
-        total += m_d100Count;
-        if (includeCustome) total += m_dCustomeCount;
 
         return total;
     }
@@ -129,12 +177,6 @@ public class DiceRoller : MonoBehaviour
                 break;
             case "d20":
                 m_d20Count++;
-                break;
-            case "d100":
-                m_d100Count++;
-                break;
-            case "dc":
-                m_dCustomeCount++;
                 break;
 
             default:
@@ -171,22 +213,9 @@ public class DiceRoller : MonoBehaviour
                 m_d20Count--;
                 if (m_d20Count < 0) m_d20Count = 0;
                 break;
-            case "d100":
-                m_d100Count--;
-                if (m_d100Count < 0) m_d100Count = 0;
-                break;
-            case "dc":
-                m_dCustomeCount--;
-                if (m_dCustomeCount < 0) m_dCustomeCount = 0;
-                break;
 
             default:
                 break;
         }
-    }
-
-    public void SetCustomeNumber(string num)
-    {
-        m_dCustomeNumber = int.Parse(num);
     }
 }

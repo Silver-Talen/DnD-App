@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class DiceRoller : MonoBehaviour
 {
+    [SerializeField] GameObject m_canvasDiceOptions;
+    [SerializeField] GameObject m_canvasDiceRolling;
+
     [SerializeField] int m_d4Count = 0;
     [SerializeField] int m_d6Count = 0;
     [SerializeField] int m_d8Count = 0;
@@ -25,11 +28,6 @@ public class DiceRoller : MonoBehaviour
     float rollingCheckTick = 1.0f;
 
     float diceSSR = 6.0f;
-
-    private void Start()
-    {
-        RoleDice();
-    }
 
     private void Update()
     {
@@ -63,6 +61,15 @@ public class DiceRoller : MonoBehaviour
                 Debug.Log("Total: " + total);
             }
         }
+    }
+
+    public void RoleDice()
+    {
+        m_areRolling = true;
+
+        m_canvasDiceOptions.SetActive(false);
+
+        SpawnDice();
     }
 
     public void SpawnDice()
@@ -133,13 +140,6 @@ public class DiceRoller : MonoBehaviour
 
             m_dice.Add(go);
         }
-    }
-
-    public void RoleDice()
-    {
-        m_areRolling = true;
-
-        SpawnDice();
     }
 
     public int GetTotalDice()

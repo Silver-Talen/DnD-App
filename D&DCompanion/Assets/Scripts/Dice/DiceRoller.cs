@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class DiceRoller : MonoBehaviour
@@ -7,19 +8,26 @@ public class DiceRoller : MonoBehaviour
     [SerializeField] GameObject m_canvasDiceOptions;
     [SerializeField] GameObject m_canvasDiceRolling;
 
-    [SerializeField] int m_d4Count = 0;
-    [SerializeField] int m_d6Count = 0;
-    [SerializeField] int m_d8Count = 0;
-    [SerializeField] int m_d10Count = 0;
-    [SerializeField] int m_d12Count = 0;
-    [SerializeField] int m_d20Count = 0;
-
     [SerializeField] GameObject m_d4Die;
     [SerializeField] GameObject m_d6Die;
     [SerializeField] GameObject m_d8Die;
     [SerializeField] GameObject m_d10Die;
     [SerializeField] GameObject m_d12Die;
     [SerializeField] GameObject m_d20Die;
+
+    [SerializeField] GameObject m_d4TextGO;
+    [SerializeField] GameObject m_d6TextGO;
+    [SerializeField] GameObject m_d8TextGO;
+    [SerializeField] GameObject m_d10TextGO;
+    [SerializeField] GameObject m_d12TextGO;
+    [SerializeField] GameObject m_d20TextGO;
+
+    int m_d4Count = 0;
+    int m_d6Count = 0;
+    int m_d8Count = 0;
+    int m_d10Count = 0;
+    int m_d12Count = 0;
+    int m_d20Count = 0;
 
     bool m_areRolling = false;
     List<GameObject> m_dice = new List<GameObject>();
@@ -162,21 +170,27 @@ public class DiceRoller : MonoBehaviour
         {
             case "d4":
                 m_d4Count++;
+                m_d4TextGO.GetComponent<TextMeshProUGUI>().text = "" + m_d4Count;
                 break;
             case "d6":
                 m_d6Count++;
+                m_d6TextGO.GetComponent<TextMeshProUGUI>().text = "" + m_d6Count;
                 break;
             case "d8":
                 m_d8Count++;
+                m_d8TextGO.GetComponent<TextMeshProUGUI>().text = "" + m_d8Count;
                 break;
             case "d10":
                 m_d10Count++;
+                m_d10TextGO.GetComponent<TextMeshProUGUI>().text = "" + m_d10Count;
                 break;
             case "d12":
                 m_d12Count++;
+                m_d12TextGO.GetComponent<TextMeshProUGUI>().text = "" + m_d12Count;
                 break;
             case "d20":
                 m_d20Count++;
+                m_d20TextGO.GetComponent<TextMeshProUGUI>().text = "" + m_d20Count;
                 break;
 
             default:
@@ -192,26 +206,32 @@ public class DiceRoller : MonoBehaviour
             case "d4":
                 m_d4Count--;
                 if (m_d4Count < 0) m_d4Count = 0;
+                m_d4TextGO.GetComponent<TextMeshProUGUI>().text = "" + m_d4Count;
                 break;
             case "d6":
                 m_d6Count--;
                 if (m_d6Count < 0) m_d6Count = 0;
+                m_d6TextGO.GetComponent<TextMeshProUGUI>().text = "" + m_d6Count;
                 break;
             case "d8":
                 m_d8Count--;
                 if (m_d8Count < 0) m_d8Count = 0;
+                m_d8TextGO.GetComponent<TextMeshProUGUI>().text = "" + m_d8Count;
                 break;
             case "d10":
                 m_d10Count--;
                 if (m_d10Count < 0) m_d10Count = 0;
+                m_d10TextGO.GetComponent<TextMeshProUGUI>().text = "" + m_d10Count;
                 break;
             case "d12":
                 m_d12Count--;
                 if (m_d12Count < 0) m_d12Count = 0;
+                m_d12TextGO.GetComponent<TextMeshProUGUI>().text = "" + m_d12Count;
                 break;
             case "d20":
                 m_d20Count--;
                 if (m_d20Count < 0) m_d20Count = 0;
+                m_d20TextGO.GetComponent<TextMeshProUGUI>().text = "" + m_d20Count;
                 break;
 
             default:

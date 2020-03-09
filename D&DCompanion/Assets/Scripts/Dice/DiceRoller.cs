@@ -1,15 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class DiceRoller : MonoBehaviour
 {
-    [SerializeField] int m_d4Count = 0;
-    [SerializeField] int m_d6Count = 0;
-    [SerializeField] int m_d8Count = 0;
-    [SerializeField] int m_d10Count = 0;
-    [SerializeField] int m_d12Count = 0;
-    [SerializeField] int m_d20Count = 0;
+    [SerializeField] GameObject m_canvasDiceOptions;
+    [SerializeField] GameObject m_canvasDiceRolling;
 
     [SerializeField] GameObject m_d4Die;
     [SerializeField] GameObject m_d6Die;
@@ -18,17 +15,33 @@ public class DiceRoller : MonoBehaviour
     [SerializeField] GameObject m_d12Die;
     [SerializeField] GameObject m_d20Die;
 
+    [SerializeField] GameObject m_d4TextGO;
+    [SerializeField] GameObject m_d6TextGO;
+    [SerializeField] GameObject m_d8TextGO;
+    [SerializeField] GameObject m_d10TextGO;
+    [SerializeField] GameObject m_d12TextGO;
+    [SerializeField] GameObject m_d20TextGO;
+
+    [SerializeField] GameObject m_totalTextGO;
+
+    int m_d4Count = 0;
+    int m_d6Count = 0;
+    int m_d8Count = 0;
+    int m_d10Count = 0;
+    int m_d12Count = 0;
+    int m_d20Count = 0;
+
     bool m_areRolling = false;
     List<GameObject> m_dice = new List<GameObject>();
 
     float rollingCheckDellay = 0.5f;
     float rollingCheckTick = 1.0f;
 
-    float diceSSR = 6.0f;
 
     private void Start()
     {
-        RoleDice();
+        m_canvasDiceOptions.SetActive(true);
+        m_canvasDiceRolling.SetActive(false);
     }
 
     private void Update()
@@ -61,10 +74,36 @@ public class DiceRoller : MonoBehaviour
                     f++;
                 }
                 Debug.Log("Total: " + total);
+                m_totalTextGO.GetComponent<TextMeshProUGUI>().text = "Total of: " + total;
             }
         }
     }
 
+    public void RoleDice()
+    {
+        m_areRolling = true;
+
+        m_canvasDiceOptions.SetActive(false);
+        m_canvasDiceRolling.SetActive(true);
+
+        SpawnDice();
+    }
+
+    public void StopRolling()
+    {
+        m_areRolling = false;
+
+        m_totalTextGO.GetComponent<TextMeshProUGUI>().text = "Rolling...";
+
+        m_canvasDiceOptions.SetActive(true);
+        m_canvasDiceRolling.SetActive(false);
+
+
+        foreach (GameObject die in m_dice) Destroy(die);
+        m_dice = new List<GameObject>();
+    }
+
+    private float diceSSR = 5.0f;
     public void SpawnDice()
     {
         for (int f = 0; f < m_d4Count; f++)
@@ -135,13 +174,6 @@ public class DiceRoller : MonoBehaviour
         }
     }
 
-    public void RoleDice()
-    {
-        m_areRolling = true;
-
-        SpawnDice();
-    }
-
     public int GetTotalDice()
     {
         int total = 0;
@@ -155,6 +187,7 @@ public class DiceRoller : MonoBehaviour
         return total;
     }
 
+    private int diceMax = 9;
     public void AddDie(string die)
     {
         die = die.ToLower();
@@ -162,21 +195,33 @@ public class DiceRoller : MonoBehaviour
         {
             case "d4":
                 m_d4Count++;
+                if (m_d4Count > diceMax) m_d4Count = 9;
+                m_d4TextGO.GetComponent<TextMeshProUGUI>().text = "" + m_d4Count;
                 break;
             case "d6":
                 m_d6Count++;
+                if (m_d6Count > diceMax) m_d6Count = 9;
+                m_d6TextGO.GetComponent<TextMeshProUGUI>().text = "" + m_d6Count;
                 break;
             case "d8":
                 m_d8Count++;
+                if (m_d8Count > diceMax) m_d8Count = 9;
+                m_d8TextGO.GetComponent<TextMeshProUGUI>().text = "" + m_d8Count;
                 break;
             case "d10":
                 m_d10Count++;
+                if (m_d10Count > diceMax) m_d10Count = 9;
+                m_d10TextGO.GetComponent<TextMeshProUGUI>().text = "" + m_d10Count;
                 break;
             case "d12":
                 m_d12Count++;
+                if (m_d12Count > diceMax) m_d12Count = 9;
+                m_d12TextGO.GetComponent<TextMeshProUGUI>().text = "" + m_d12Count;
                 break;
             case "d20":
                 m_d20Count++;
+                if (m_d20Count > diceMax) m_d20Count = 9;
+                m_d20TextGO.GetComponent<TextMeshProUGUI>().text = "" + m_d20Count;
                 break;
 
             default:
@@ -192,26 +237,32 @@ public class DiceRoller : MonoBehaviour
             case "d4":
                 m_d4Count--;
                 if (m_d4Count < 0) m_d4Count = 0;
+                m_d4TextGO.GetComponent<TextMeshProUGUI>().text = "" + m_d4Count;
                 break;
             case "d6":
                 m_d6Count--;
                 if (m_d6Count < 0) m_d6Count = 0;
+                m_d6TextGO.GetComponent<TextMeshProUGUI>().text = "" + m_d6Count;
                 break;
             case "d8":
                 m_d8Count--;
                 if (m_d8Count < 0) m_d8Count = 0;
+                m_d8TextGO.GetComponent<TextMeshProUGUI>().text = "" + m_d8Count;
                 break;
             case "d10":
                 m_d10Count--;
                 if (m_d10Count < 0) m_d10Count = 0;
+                m_d10TextGO.GetComponent<TextMeshProUGUI>().text = "" + m_d10Count;
                 break;
             case "d12":
                 m_d12Count--;
                 if (m_d12Count < 0) m_d12Count = 0;
+                m_d12TextGO.GetComponent<TextMeshProUGUI>().text = "" + m_d12Count;
                 break;
             case "d20":
                 m_d20Count--;
                 if (m_d20Count < 0) m_d20Count = 0;
+                m_d20TextGO.GetComponent<TextMeshProUGUI>().text = "" + m_d20Count;
                 break;
 
             default:

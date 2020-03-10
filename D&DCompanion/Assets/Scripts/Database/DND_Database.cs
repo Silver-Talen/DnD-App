@@ -7,6 +7,9 @@ using System;
 using SimpleJSON;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.IO;
+using UnityEngine.Networking;
+using TMPro;
 
 //THIS CLASS WAS CREATED USING A TUTORIAL FOUND AT THE URL BELOW
 //https://answers.unity.com/questions/743400/database-sqlite-setup-for-unity.html
@@ -16,6 +19,7 @@ public class DND_Database : MonoBehaviour
     public static DND_Database Instance;
     public List<Data> ParsedData;
     public string ApiCall;
+    
 
     #region Database Connections
     
@@ -36,8 +40,17 @@ public class DND_Database : MonoBehaviour
     void CheckIfDatabaseEmpty()
     {
         //Path to database
-        string Connection = "URI=file:" + Application.dataPath + "/Databases/DND_Data.db";
+        string Connection = Application.persistentDataPath + "/DND_Data.db";
 
+        if(!File.Exists(Connection))
+        {
+            WWW loadDB = new WWW("jar:file://" + Application.dataPath + "!/assets/" + "StreamingAssets/DND_Data.db");
+            while (!loadDB.isDone) { }
+
+            File.WriteAllBytes(Connection, loadDB.bytes);
+        }
+
+        Connection = "URI=file:" + Connection;
         //Gets the Database using the connection
         DBConnection = new SqliteConnection(Connection);
         //Opens the connection to the database
@@ -80,7 +93,17 @@ public class DND_Database : MonoBehaviour
     void GenerateDatabase()
     {
         //Path to database
-        string Connection = "URI=file:" + Application.dataPath + "/Databases/DND_Data.db";
+        string Connection = Application.persistentDataPath + "/DND_Data.db";
+
+        if (!File.Exists(Connection))
+        {
+            WWW loadDB = new WWW("jar:file://" + Application.dataPath + "!/assets/" + "StreamingAssets/DND_Data.db");
+            while (!loadDB.isDone) { }
+
+            File.WriteAllBytes(Connection, loadDB.bytes);
+        }
+
+        Connection = "URI=file:" + Connection;
 
         //Gets the Database using the connection
         DBConnection = new SqliteConnection(Connection);
@@ -106,7 +129,7 @@ public class DND_Database : MonoBehaviour
         reader.Close();
         reader = null;
         DBCommand.Dispose();
-        DBCommand = null;
+        DBCommand = null;   
         DBConnection.Close();
         DBConnection = null;
     }
@@ -114,7 +137,17 @@ public class DND_Database : MonoBehaviour
     void GrabDatabase()
     {
         //Path to database
-        string Connection = "URI=file:" + Application.dataPath + "/Databases/DND_Data.db";
+        string Connection = Application.persistentDataPath + "/DND_Data.db";
+
+        if (!File.Exists(Connection))
+        {
+            WWW loadDB = new WWW("jar:file://" + Application.dataPath + "!/assets/" + "StreamingAssets/DND_Data.db");
+            while (!loadDB.isDone) { }
+
+            File.WriteAllBytes(Connection, loadDB.bytes);
+        }
+
+        Connection = "URI=file:" + Connection;
 
         //Gets the Database using the connection
         DBConnection = new SqliteConnection(Connection);

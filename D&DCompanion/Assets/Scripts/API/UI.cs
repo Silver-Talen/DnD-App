@@ -13,7 +13,7 @@ public class UI : MonoBehaviour
     public GameObject Content;
     public TextMeshProUGUI DisplayText;
     public GameObject DisplayLabel;
-
+    public TextMeshProUGUI DebugText;
 
     public static UI Instance;
     public List<Data> ParsedData;
@@ -68,6 +68,7 @@ public class UI : MonoBehaviour
             TextToDisplay.transform.SetParent(Content.transform);
 
         }
+        DebugText.text = "DatabaseDataCount: " + DatabaseData.Count;
     }
 
     IEnumerator DelayedDisplayRandomData()

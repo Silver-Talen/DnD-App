@@ -187,6 +187,7 @@ public class DND_Database : MonoBehaviour
             Data data = new Data(item["index"], item["name"], item["url"]);
             ParsedData.Add(data);
         }
+        UI.Instance.DatabaseData = ParsedData;
     }
 
     public void FetchData(JSONNode records, string type)

@@ -13,7 +13,6 @@ public class UI : MonoBehaviour
     public GameObject Content;
     public TextMeshProUGUI DisplayText;
     public GameObject DisplayLabel;
-    public TextMeshProUGUI DebugText;
 
     public static UI Instance;
     public List<Data> ParsedData;
@@ -54,7 +53,7 @@ public class UI : MonoBehaviour
 
     IEnumerator DelayedDisplayData()
     {
-        yield return new WaitForSeconds(0.7f);
+        yield return new WaitForSeconds(0.9f);
 
         foreach (Transform child in Content.transform)
         {
@@ -68,12 +67,11 @@ public class UI : MonoBehaviour
             TextToDisplay.transform.SetParent(Content.transform);
 
         }
-        DebugText.text = "DatabaseDataCount: " + DatabaseData.Count;
     }
 
     IEnumerator DelayedDisplayRandomData()
     {
-        yield return new WaitForSeconds(0.7f);
+        yield return new WaitForSeconds(0.9f);
 
         foreach (Transform child in Content.transform)
         {
